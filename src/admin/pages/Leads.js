@@ -1,0 +1,6 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { getLeads } from "@/lib/storage/leads";
+export default function Leads() {
+    const leads = getLeads();
+    return (_jsxs("div", { className: "p-6", children: [_jsx("h1", { className: "text-2xl font-bold mb-6", children: "Leads" }), leads.length === 0 ? (_jsx("p", { className: "text-gray-500", children: "No leads yet" })) : (_jsx("div", { className: "grid gap-4", children: leads.map((lead) => (_jsxs("div", { className: "border rounded-lg p-4 bg-white", children: [_jsxs("div", { className: "flex justify-between", children: [_jsx("p", { className: "font-semibold", children: lead.name }), _jsx("span", { className: "text-xs text-gray-500", children: new Date(lead.createdAt).toLocaleDateString() })] }), _jsxs("p", { className: "text-sm text-gray-600 mt-1", children: ["\uD83D\uDCDE ", lead.phone] }), _jsxs("p", { className: "text-sm text-gray-600", children: ["\u2709\uFE0F ", lead.email || "No email"] }), _jsx("p", { className: "mt-2 text-sm text-gray-500", children: lead.message }), lead.propertyTitle && (_jsxs("p", { className: "mt-2 text-xs text-blue-600", children: ["Interested in: ", lead.propertyTitle] }))] }, lead.id))) }))] }));
+}

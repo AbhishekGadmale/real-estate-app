@@ -14,12 +14,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import type { Property } from '@/types';
-import { getStoredProperties, saveProperties } from '@/lib/data';
-import { toast } from 'sonner';
+
 
 interface PropertyFormProps {
   property?: Property;
   isEdit?: boolean;
+  onSubmit: (data: any) => void;
 }
 
 const propertyTypes = [
@@ -40,7 +40,11 @@ const tagOptions = [
   { value: 'hot', label: 'Hot Deal' },
 ];
 
-export default function PropertyForm({ property, isEdit = false }: PropertyFormProps) {
+export default function PropertyForm({
+  property,
+  isEdit = false,
+  onSubmit,
+}: PropertyFormProps) {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [images, setImages] = useState<string[]>(property?.images || []);
@@ -84,47 +88,38 @@ export default function PropertyForm({ property, isEdit = false }: PropertyFormP
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    try {
-      const properties = getStoredProperties();
-      
-      const propertyData: Property = {
-        id: property?.id || Date.now().toString(),
-        title: formData.title,
-        price: Number(formData.price),
-        location: formData.location,
-        images: images.length > 0 ? images : ['/images/property-1.jpg'],
-        description: formData.description,
-        bedrooms: Number(formData.bedrooms),
-        bathrooms: Number(formData.bathrooms),
-        area: Number(formData.area),
-        amenities: formData.amenities,
-        status: formData.status as 'available' | 'sold',
-        featured: formData.featured,
-        tag: formData.tag as 'new' | 'featured' | 'hot' | undefined,
-        propertyType: formData.propertyType as Property['propertyType'],
-        createdAt: property?.createdAt || new Date().toISOString(),
-      };
+  try {
+    const propertyData: Property = {
+      id: property?.id || Date.now().toString(),
+      title: formData.title,
+      price: Number(formData.price),
+      location: formData.location,
+      images: images.length > 0 ? images : ['/images/property-1.jpg'],
+      description: formData.description,
+      bedrooms: Number(formData.bedrooms),
+      bathrooms: Number(formData.bathrooms),
+      area: Number(formData.area),
+      amenities: formData.amenities,
+      status: formData.status as 'available' | 'sold',
+      featured: formData.featured,
+      tag: formData.tag as 'new' | 'featured' | 'hot' | undefined,
+      propertyType: formData.propertyType as Property['propertyType'],
+      createdAt: property?.createdAt || new Date().toISOString(),
+    };
 
-      if (isEdit) {
-        const index = properties.findIndex((p) => p.id === property?.id);
-        if (index !== -1) properties[index] = propertyData;
-      } else {
-        properties.push(propertyData);
-      }
+    // 👉 THIS is the ONLY change:
+    onSubmit(propertyData);
 
-      saveProperties(properties);
-      toast.success(isEdit ? 'Property updated successfully' : 'Property added successfully');
-      navigate('/admin/properties');
-    } catch (error) {
-      toast.error('Something went wrong. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
