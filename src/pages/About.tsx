@@ -32,7 +32,7 @@ export default function About() {
       <section className="bg-blue-900 pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">About EstatePro</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">About Mantra Properties</h1>
             <p className="text-lg text-white/80">Your trusted partner in real estate. We have been helping families find their dream homes and investors build their portfolios for over a decade.</p>
           </motion.div>
         </div>
@@ -62,13 +62,13 @@ export default function About() {
             </motion.div>
 
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Sarah Johnson</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Sandeep Gadmale</h2>
               <p className="text-blue-600 font-medium mb-6">Founder & Lead Real Estate Agent</p>
               <p className="text-gray-600 leading-relaxed mb-6">
                 With over a decade of experience in the real estate industry, I have helped hundreds of families find their perfect homes and assisted investors in building profitable property portfolios.
               </p>
               <p className="text-gray-600 leading-relaxed mb-8">
-                At EstatePro, we believe that finding a home is more than just a transaction – it is about finding a place where memories are made.
+                At MantraProperties, we believe that finding a home is more than just a transaction – it is about finding a place where memories are made.
               </p>
 
               <div className="space-y-3 mb-8">
@@ -82,7 +82,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center space-x-3 text-gray-600">
                   <MapPin className="h-5 w-5 text-blue-600" />
-                  <span>123 Real Estate Ave, Mumbai, NY 10001</span>
+                  <span>30 Golden valley Kalina Santacruz East Mumbai 400098</span>
                 </div>
               </div>
 

@@ -88,7 +88,7 @@ export default function Navbar() {
                 <div className="flex items-center justify-between py-4 border-b">
                   <Link to="/" className="flex items-center space-x-2" onClick={() => setMobileMenuOpen(false)}>
                     <Building2 className="h-6 w-6 text-blue-900" />
-                    <span className="text-lg font-bold text-blue-900">EstatePro</span>
+                    <span className="text-lg font-bold text-blue-900">Mantra Properties</span>
                   </Link>
                 </div>
                 <nav className="flex-1 py-6">

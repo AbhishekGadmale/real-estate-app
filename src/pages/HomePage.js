@@ -21,9 +21,9 @@ const services = [
     { icon: Users, title: 'Legal Assistance', description: 'Complete legal support for all property transactions, ensuring a smooth process.' },
 ];
 const testimonials = [
-    { name: 'Michael Chen', role: 'Home Buyer', content: 'EstatePro made finding our dream home so easy. Their team was professional, responsive, and really understood what we were looking for. Highly recommend!', rating: 5 },
-    { name: 'Sarah Williams', role: 'Property Investor', content: 'Working with EstatePro has been a game-changer for my investment portfolio. Their market insights and guidance have helped me make smart decisions.', rating: 5 },
-    { name: 'David Thompson', role: 'Home Seller', content: 'Sold my property above asking price within two weeks! The team at EstatePro knows how to market properties effectively. Exceptional service!', rating: 5 },
+    { name: 'Michael Chen', role: 'Home Buyer', content: 'Mantra Properties made finding our dream home so easy. Their team was professional, responsive, and really understood what we were looking for. Highly recommend!', rating: 5 },
+    { name: 'Sarah Williams', role: 'Property Investor', content: 'Working with Mantra Properties has been a game-changer for my investment portfolio. Their market insights and guidance have helped me make smart decisions.', rating: 5 },
+    { name: 'David Thompson', role: 'Home Seller', content: 'Sold my property above asking price within two weeks! The team at Mantra Properties knows how to market properties effectively. Exceptional service!', rating: 5 },
 ];
 const stats = [
     { value: 500, suffix: '+', label: 'Properties Sold' },
