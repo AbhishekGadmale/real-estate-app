@@ -91,7 +91,7 @@ export default function ScheduleVisitModal({ propertyTitle, trigger }: ScheduleV
 
             <div>
               <Label htmlFor="visit-phone">Phone Number *</Label>
-              <Input id="visit-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1 (555) 123-4567" required />
+              <Input id="visit-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91 9820018217" required />
             </div>
 
             <div>
