@@ -6,9 +6,9 @@ import ContactForm from '@/components/ContactForm';
 import WhatsAppButton from '@/components/WhatsAppButton';
 
 const contactInfo = [
-  { icon: Phone, title: 'Phone', content: '+1 (555) 123-4567', href: 'tel:+15551234567' },
+  { icon: Phone, title: 'Phone', content: '+91 9820018217', href: 'tel:+91 9820018217' },
   { icon: Mail, title: 'Email', content: 'info@estatepro.com', href: 'mailto:info@estatepro.com' },
-  { icon: MapPin, title: 'Address', content: '123 Real Estate Ave, New York, NY 10001', href: '#' },
+  { icon: MapPin, title: 'Address', content: '30 Golden valley Kalina Santacruz, East Mumbai 400098', href: '#' },
   { icon: Clock, title: 'Business Hours', content: 'Mon - Fri: 9:00 AM - 6:00 PM', href: '#' },
 ];
 
@@ -53,13 +53,19 @@ export default function Contact() {
 
             <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="space-y-8">
               <div className="bg-white rounded-xl shadow-md overflow-hidden">
-                <div className="aspect-video bg-gray-100 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 mx-auto mb-2 text-gray-400" />
-                    <p className="text-gray-600">123 Real Estate Ave</p>
-                    <p className="text-gray-600">New York, NY 10001</p>
-                  </div>
-                </div>
+                <div className="bg-white rounded-xl shadow-md overflow-hidden">
+  <div className="aspect-video rounded-lg overflow-hidden">
+    <iframe
+      title="Office Location"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      loading="lazy"
+      allowFullScreen
+      src="https://www.google.com/maps?q=30 Golden Valley Kalina Santacruz East Mumbai 400098&output=embed"
+    ></iframe>
+  </div>
+</div>
               </div>
 
               <div className="bg-blue-900 rounded-xl shadow-md p-8 text-white">

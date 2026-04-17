@@ -81,7 +81,7 @@ export default function ContactForm({ propertyId, propertyTitle, onSuccess }: Co
           <Phone className="h-4 w-4" />
           <span>Phone Number *</span>
         </Label>
-        <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="+1 (555) 123-4567" required className="mt-1" />
+        <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="+91 9820018217" required className="mt-1" />
       </div>
 
       <div>

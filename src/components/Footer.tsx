@@ -72,7 +72,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-blue-400 mt-0.5" />
-                <span className="text-gray-400 text-sm">123 Real Estate Ave,<br />Mumbai, NY 10001</span>
+                <span className="text-gray-400 text-sm">30 Golden valley Kalina Santacruz,<br />East Mumbai 400098</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-blue-400" />
@@ -80,7 +80,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-blue-400" />
-                <a href="mailto:info@estatepro.com" className="text-gray-400 hover:text-white transition-colors text-sm">info@estatepro.com</a>
+                <a href="mailto:info@estatepro.com" className="text-gray-400 hover:text-white transition-colors text-sm">info@MantraProperties.com</a>
               </li>
             </ul>
           </div>

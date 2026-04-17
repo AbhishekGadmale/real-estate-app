@@ -190,15 +190,21 @@ export default function PropertyDetail() {
                 </div>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-white rounded-xl shadow-sm p-6">
-                <h2 className="text-xl font-semibold mb-4">Location</h2>
-                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 mx-auto mb-2 text-gray-400" />
-                    <p className="text-gray-600">{property.location}</p>
-                  </div>
-                </div>
-              </motion.div>
+             <motion.div className="bg-white rounded-xl shadow-sm p-6">
+  <h2 className="text-xl font-semibold mb-4">Location</h2>
+
+  <div className="aspect-video rounded-lg overflow-hidden">
+    <iframe
+      title="Property Location"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      loading="lazy"
+      allowFullScreen
+      src={`https://www.google.com/maps?q=${encodeURIComponent(property.location)}&output=embed`}
+    />
+  </div>
+</motion.div>
             </div>
 
             <div className="lg:col-span-1">
@@ -208,7 +214,7 @@ export default function PropertyDetail() {
                 <div className="flex items-center space-x-3 mb-6">
                   <img src="/images/agent.jpg" alt="Agent" className="w-14 h-14 rounded-full object-cover" />
                   <div>
-                    <p className="font-semibold">Sarah Johnson</p>
+                    <p className="font-semibold">Sandeep Gadmale</p>
                     <p className="text-sm text-gray-500">Senior Real Estate Agent</p>
                   </div>
                 </div>
@@ -238,7 +244,7 @@ export default function PropertyDetail() {
       </section>
 
       <Footer />
-      <WhatsAppButton phoneNumber="+15551234567" message={`Hi, I am interested in "${property.title}". Can you provide more information?`} />
+      <WhatsAppButton phoneNumber="+91 9820018217" message={`Hi, I am interested in "${property.title}". Can you provide more information?`} />
     </div>
   );
 }

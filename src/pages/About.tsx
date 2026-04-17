@@ -7,7 +7,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import StatCard from '@/components/StatCard';
 
 const achievements = [
-  'Over 500+ properties sold successfully',
+  'Over 50+ properties sold successfully',
   '10+ years of industry experience',
   'Award-winning customer service',
   'Expert team of 50+ agents',
@@ -18,7 +18,7 @@ const achievements = [
 const partners = ['Coldwell Banker', 'RE/MAX', 'Keller Williams', 'Sotheby\'s', 'Century 21', 'Compass'];
 
 const stats = [
-  { value: 500, suffix: '+', label: 'Properties Sold' },
+  { value: 50, suffix: '+', label: 'Properties Sold' },
   { value: 10, suffix: '+', label: 'Years Experience' },
   { value: 1000, suffix: '+', label: 'Happy Clients' },
   { value: 50, suffix: '+', label: 'Expert Agents' },

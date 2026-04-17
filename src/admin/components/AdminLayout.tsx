@@ -31,7 +31,7 @@ export default function AdminLayout() {
       <div className="flex items-center space-x-2 mb-8">
         <Building2 className="h-8 w-8 text-blue-400" />
         <div>
-          <span className="text-xl font-bold text-white">EstatePro</span>
+          <span className="text-xl font-bold text-white">Mantra Properties</span>
           <p className="text-xs text-gray-400">Admin Panel</p>
         </div>
       </div>
@@ -70,7 +70,7 @@ export default function AdminLayout() {
       <div className="lg:hidden bg-gray-900 text-white p-4 flex items-center justify-between">
         <Link to="/admin/dashboard" className="flex items-center space-x-2">
           <Building2 className="h-6 w-6 text-blue-400" />
-          <span className="font-bold">EstatePro Admin</span>
+          <span className="font-bold">Mantra Properties Admin</span>
         </Link>
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>

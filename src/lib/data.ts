@@ -157,9 +157,9 @@ export const properties: Property[] = [
 export const sampleLeads: Lead[] = [
   {
     id: '1',
-    name: 'John Smith',
-    phone: '+1 (555) 123-4567',
-    email: 'john@example.com',
+    name: 'Sandeep Gadmale',
+    phone: '+91 9820018217',
+    email: 'Mantra@example.com',
     message: 'I am interested in the Modern Downtown Apartment. Can we schedule a viewing?',
     propertyId: '1',
     propertyTitle: 'Modern Downtown Apartment',
@@ -167,9 +167,9 @@ export const sampleLeads: Lead[] = [
   },
   {
     id: '2',
-    name: 'Sarah Johnson',
-    phone: '+1 (555) 987-6543',
-    email: 'sarah@example.com',
+    name: 'Sandeep Gadmale',
+    phone: '+91 9820018217',
+    email: 'Mantra@example.com',
     message: 'Please send me more information about the Luxury Mediterranean Villa.',
     propertyId: '2',
     propertyTitle: 'Luxury Mediterranean Villa',
