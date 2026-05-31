@@ -10,7 +10,7 @@ import StatCard from '@/components/StatCard';
 import ServiceCard from '@/components/ServiceCard';
 import TestimonialCard from '@/components/TestimonialCard';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { properties } from '@/lib/data';
+import { useProperties } from '@/hooks/useProperties';
 
 const services = [
   { icon: Home, title: 'Property Sales', description: 'We help you sell your property at the best price with our extensive network and marketing expertise.' },
@@ -35,6 +35,7 @@ const stats = [
 ];
 
 export default function HomePage() {
+  const { data: properties = [], isLoading } = useProperties();
   const featuredProperties = properties.filter(p => p.featured).slice(0, 6);
 
   return (
@@ -95,9 +96,19 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredProperties.map((property, index) => (
-              <PropertyCard key={property.id} property={property} index={index} />
-            ))}
+            {isLoading ? (
+              [...Array(3)].map((_, i) => (
+                <div key={i} className="h-[400px] rounded-xl bg-gray-100 animate-pulse" />
+              ))
+            ) : featuredProperties.length > 0 ? (
+              featuredProperties.map((property, index) => (
+                <PropertyCard key={property.id} property={property} index={index} />
+              ))
+            ) : (
+              <div className="col-span-full py-12 text-center text-gray-500">
+                No featured properties available at the moment.
+              </div>
+            )}
           </div>
 
           <div className="mt-8 text-center md:hidden">

@@ -1,18 +1,20 @@
 import PropertyForm from "../components/PropertyForm";
 import { useNavigate } from "react-router-dom";
-import { addProperty } from "@/lib/storage/properties";
+import { useAddProperty } from "@/hooks/useProperties";
+import { toast } from "sonner";
 
 export default function AddProperty() {
   const navigate = useNavigate();
+  const addMutation = useAddProperty();
 
-  const handleAdd = (data: any) => {
-    addProperty({
-      ...data,
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString(),
-    });
-
-    navigate("/admin/properties");
+  const handleAdd = async (data: any) => {
+    try {
+      await addMutation.mutateAsync(data);
+      toast.success("Property added successfully");
+      navigate("/admin/properties");
+    } catch (error) {
+      toast.error("Failed to add property");
+    }
   };
 
   return (

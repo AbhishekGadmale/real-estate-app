@@ -1,7 +1,10 @@
-import { getLeads } from "@/lib/storage/leads";
+import { useLeads } from "@/hooks/useLeads";
 
 export default function Leads() {
-  const leads = getLeads();
+  const { data: leads = [], isLoading, error } = useLeads();
+
+  if (isLoading) return <div className="p-6">Loading leads...</div>;
+  if (error) return <div className="p-6 text-red-500">Error loading leads</div>;
 
   return (
     <div className="p-6">
@@ -12,8 +15,8 @@ export default function Leads() {
       ) : (
         <div className="grid gap-4">
           {leads.map((lead) => (
-            <div key={lead.id} className="border rounded-lg p-4 bg-white">
-              <div className="flex justify-between">
+            <div key={lead.id} className="border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition-shadow">
+...
                 <p className="font-semibold">{lead.name}</p>
                 <span className="text-xs text-gray-500">
                   {new Date(lead.createdAt).toLocaleDateString()}

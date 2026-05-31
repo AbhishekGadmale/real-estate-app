@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import { Building2, Users, Eye, ArrowUpRight, ArrowDownRight } from 'lucide-react';
-import { getStoredProperties, getStoredLeads } from '@/lib/data';
-import type { Property, Lead } from '@/types';
+import { useProperties } from '@/hooks/useProperties';
+import { useLeads } from '@/hooks/useLeads';
 
 interface StatCardProps {
   title: string;
@@ -35,13 +34,12 @@ function StatCard({ title, value, change, changeType, icon: Icon, color }: StatC
 }
 
 export default function Dashboard() {
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [leads, setLeads] = useState<Lead[]>([]);
+  const { data: properties = [], isLoading: loadingProps } = useProperties();
+  const { data: leads = [], isLoading: loadingLeads } = useLeads();
 
-  useEffect(() => {
-    setProperties(getStoredProperties());
-    setLeads(getStoredLeads());
-  }, []);
+  if (loadingProps || loadingLeads) {
+    return <div className="p-8">Loading dashboard data...</div>;
+  }
 
   const stats = {
     totalProperties: properties.length,
@@ -62,7 +60,7 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Total Properties" value={stats.totalProperties} change="+2 this month" changeType="positive" icon={Building2} color="bg-blue-600" />
-        <StatCard title="Available" value={stats.availableProperties} change={`${Math.round((stats.availableProperties / stats.totalProperties) * 100)}% of total`} changeType="positive" icon={Eye} color="bg-green-600" />
+        <StatCard title="Available" value={stats.availableProperties} change={`${Math.round((stats.availableProperties / (stats.totalProperties || 1)) * 100)}% of total`} changeType="positive" icon={Eye} color="bg-green-600" />
         <StatCard title="Total Leads" value={stats.totalLeads} change="+3 this week" changeType="positive" icon={Users} color="bg-purple-600" />
         <StatCard title="Portfolio Value" value={`$${(stats.totalValue / 1000000).toFixed(1)}M`} icon={Building2} color="bg-amber-600" />
       </div>

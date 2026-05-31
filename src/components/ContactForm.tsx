@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { addLead } from '@/lib/data';
+import { useAddLead } from '@/hooks/useLeads';
 import { toast } from 'sonner';
 
 interface ContactFormProps {
@@ -14,7 +14,7 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ propertyId, propertyTitle, onSuccess }: ContactFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const addLeadMutation = useAddLead();
   const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -25,29 +25,29 @@ export default function ContactForm({ propertyId, propertyTitle, onSuccess }: Co
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      await addLeadMutation.mutateAsync({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        message: formData.message,
+        propertyId,
+        propertyTitle,
+      });
 
-    addLead({
-      name: formData.name,
-      phone: formData.phone,
-      email: formData.email,
-      message: formData.message,
-      propertyId,
-      propertyTitle,
-    });
+      setIsSuccess(true);
+      toast.success('Message sent successfully! We will contact you soon.');
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    toast.success('Message sent successfully! We will contact you soon.');
+      if (onSuccess) onSuccess();
 
-    if (onSuccess) onSuccess();
-
-    setTimeout(() => {
-      setIsSuccess(false);
-      setFormData({ name: '', phone: '', email: '', message: '' });
-    }, 3000);
+      setTimeout(() => {
+        setIsSuccess(false);
+        setFormData({ name: '', phone: '', email: '', message: '' });
+      }, 3000);
+    } catch (error) {
+      toast.error('Failed to send message. Please try again.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -73,7 +73,15 @@ export default function ContactForm({ propertyId, propertyTitle, onSuccess }: Co
           <User className="h-4 w-4" />
           <span>Full Name *</span>
         </Label>
-        <Input id="name" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" required className="mt-1" />
+        <input 
+          id="name" 
+          name="name" 
+          value={formData.name} 
+          onChange={handleChange} 
+          placeholder="John Doe" 
+          required 
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-1" 
+        />
       </div>
 
       <div>
@@ -81,7 +89,16 @@ export default function ContactForm({ propertyId, propertyTitle, onSuccess }: Co
           <Phone className="h-4 w-4" />
           <span>Phone Number *</span>
         </Label>
-        <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="+91 9820018217" required className="mt-1" />
+        <input 
+          id="phone" 
+          name="phone" 
+          type="tel" 
+          value={formData.phone} 
+          onChange={handleChange} 
+          placeholder="+91 9820018217" 
+          required 
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-1" 
+        />
       </div>
 
       <div>
@@ -89,7 +106,15 @@ export default function ContactForm({ propertyId, propertyTitle, onSuccess }: Co
           <Mail className="h-4 w-4" />
           <span>Email Address</span>
         </Label>
-        <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" className="mt-1" />
+        <input 
+          id="email" 
+          name="email" 
+          type="email" 
+          value={formData.email} 
+          onChange={handleChange} 
+          placeholder="john@example.com" 
+          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 mt-1" 
+        />
       </div>
 
       <div>
@@ -100,8 +125,8 @@ export default function ContactForm({ propertyId, propertyTitle, onSuccess }: Co
         <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="I am interested in this property..." required rows={4} className="mt-1" />
       </div>
 
-      <Button type="submit" disabled={isSubmitting} className="w-full bg-blue-900 hover:bg-blue-800 text-white">
-        {isSubmitting ? (
+      <Button type="submit" disabled={addLeadMutation.isPending} className="w-full bg-blue-900 hover:bg-blue-800 text-white">
+        {addLeadMutation.isPending ? (
           <span className="flex items-center">
             <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

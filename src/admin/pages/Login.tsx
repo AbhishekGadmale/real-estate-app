@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { Building2, Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,21 +17,23 @@ export default function AdminLogin() {
     e.preventDefault();
     setIsLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    if (formData.email === 'admin@estatepro.com' && formData.password === 'admin123') {
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/login`, formData);
+      
       localStorage.setItem('estatepro_auth', JSON.stringify({
-        email: formData.email,
-        name: 'Admin User',
+        token: response.data.token,
+        user: response.data.user,
         loginTime: new Date().toISOString(),
       }));
+      
       toast.success('Login successful!');
       navigate('/admin/dashboard');
-    } else {
-      toast.error('Invalid credentials. Try admin@estatepro.com / admin123');
+    } catch (error: any) {
+      const message = error.response?.data?.msg || 'Login failed. Please check your credentials.';
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (

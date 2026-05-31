@@ -1,23 +1,27 @@
 import { useParams, useNavigate } from "react-router-dom";
 import PropertyForm from "../components/PropertyForm";
-import { getProperties, updateProperty } from "@/lib/storage/properties";
+import { useProperty, useUpdateProperty } from "@/hooks/useProperties";
+import { toast } from "sonner";
 
 export default function EditProperty() {
   const { id } = useParams();
   const navigate = useNavigate();
+  
+  const { data: property, isLoading, error } = useProperty(id!);
+  const updateMutation = useUpdateProperty();
 
-  const property = getProperties().find((p) => p.id === id);
-
-  const handleUpdate = (data: any) => {
-    updateProperty({
-      ...data,
-      id: id!,
-    });
-
-    navigate("/admin/properties");
+  const handleUpdate = async (data: any) => {
+    try {
+      await updateMutation.mutateAsync({ ...data, id: id! });
+      toast.success("Property updated successfully");
+      navigate("/admin/properties");
+    } catch (err) {
+      toast.error("Failed to update property");
+    }
   };
 
-  if (!property) return <p>Property not found</p>;
+  if (isLoading) return <div className="p-6">Loading property...</div>;
+  if (error || !property) return <div className="p-6 text-red-500">Property not found</div>;
 
   return (
     <div className="p-6">

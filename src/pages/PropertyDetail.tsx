@@ -12,8 +12,7 @@ import ImageGallery from '@/components/ImageGallery';
 import ContactForm from '@/components/ContactForm';
 import ScheduleVisitModal from '@/components/ScheduleVisitModal';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { Property } from '@/types';
-import { getStoredProperties } from '@/lib/data';
+import { useProperty } from '@/hooks/useProperties';
 
 const tagColors = {
   new: 'bg-cyan-500',
@@ -24,16 +23,8 @@ const tagColors = {
 export default function PropertyDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [property, setProperty] = useState<Property | null>(null);
+  const { data: property, isLoading, error } = useProperty(id!);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const properties = getStoredProperties();
-    const found = properties.find((p) => String(p.id) === id);
-    if (found) setProperty(found);
-    setLoading(false);
-  }, [id]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(price);
@@ -61,7 +52,7 @@ export default function PropertyDetail() {
     window.location.href = 'tel:+15551234567';
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900" />
@@ -69,7 +60,7 @@ export default function PropertyDetail() {
     );
   }
 
-  if (!property) {
+  if (error || !property) {
     return (
       <div className="min-h-screen bg-gray-50">
         <Navbar />

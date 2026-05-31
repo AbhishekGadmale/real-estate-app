@@ -8,20 +8,16 @@ import Footer from '@/components/Footer';
 import PropertyCard from '@/components/PropertyCard';
 import FilterSidebar from '@/components/FilterSidebar';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import { Property, SearchFilters } from '@/types';
-import { getStoredProperties } from '@/lib/data';
+import { SearchFilters } from '@/types';
+import { useProperties } from '@/hooks/useProperties';
 
 export default function Listings() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [properties, setProperties] = useState<Property[]>([]);
+  const { data: properties = [], isLoading } = useProperties();
   const [filters, setFilters] = useState<SearchFilters>({});
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-
-  useEffect(() => {
-    setProperties(getStoredProperties());
-  }, []);
-
+...
   useEffect(() => {
     const newFilters: SearchFilters = {};
     const location = searchParams.get('location');
@@ -124,7 +120,11 @@ export default function Listings() {
             <FilterSidebar filters={filters} onFilterChange={handleFilterChange} />
 
             <div className="flex-1">
-              {filteredProperties.length > 0 ? (
+              {isLoading ? (
+                <div className="flex items-center justify-center p-20">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-900"></div>
+                </div>
+              ) : filteredProperties.length > 0 ? (
                 <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 xl:grid-cols-3' : 'grid-cols-1'}`}>
                   {filteredProperties.map((property, index) => (
                     <PropertyCard key={property.id} property={property} index={index} />
